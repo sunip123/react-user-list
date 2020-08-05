@@ -3,7 +3,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 https://lucid-mirzakhani-9005b9.netlify.app
 
-: Description control characters are not allowed
+
 
 ## Available Scripts
 
