@@ -25,11 +25,11 @@ const Posts = ({ posts, loading }) => {
                   <p class="title"> {post.email}</p>
                 </div> 
             </div>
-                </p>))} 
-             </div>
-             </div>
+      </p>))} 
+       </div>
+        </div>
          </div>
-     </div>
+          </div>
   );
 };
 
