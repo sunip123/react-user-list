@@ -16,12 +16,12 @@ const App = (page) => {
       .then(json => {
         setPosts(json.data);
           setLoading(false);
-          });
-       }, [page]);
-  // Get current posts
-     const indexOfLastPost = currentPage * postsPerPage;
-     const indexOfFirstPost = indexOfLastPost - postsPerPage;
-     const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
+      });
+  }, [page]);
+ // Get current posts
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
   // Change page
   const paginate = pageNumber => setCurrentPage(pageNumber);
   return (
