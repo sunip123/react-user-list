@@ -1,84 +1,28 @@
 import React from 'react';
+import '../css/Pagination.scss';
 
-class Pagination extends React.Component {
-    constructor(props, context) {
-      super(props, context);
-      this.state = {
-        currentPage: null,
-        pageCount: null
-      }
-    }
-    
-    componentWillMount() {
-      const startingPage = this.props.startingPage
-        ? this.props.startingPage
-        : 1;
-      const data = this.props.data;
-      const pageSize = this.props.pageSize;
-      let pageCount = parseInt(data.length / pageSize);
-      if (data.length % pageSize > 0) {
-        pageCount++;
-      }
-      this.setState({
-        currentPage: startingPage,
-        pageCount: pageCount
-      });
-    }
-    
-    setCurrentPage(num) {
-      this.setState({currentPage: num});
-    }
-  
-    createControls() {
-      let controls = [];
-      const pageCount = this.state.pageCount;
-      for (let i = 1; i <= pageCount; i++) {
-        const baseClassName = 'pagination-controls__button';
-        const activeClassName = i === this.state.currentPage ? `${baseClassName}--active` : '';
-        controls.push(
-          <div
-            className={`${baseClassName} ${activeClassName}`}
-            onClick={() => this.setCurrentPage(i)}
-          >
-            {i}
-          </div>
-        );
-      }
-      return controls;
-    }
-  
-    createPaginatedData() {
-      const data = this.props.data;
-      const pageSize = this.props.pageSize;
-      const currentPage = this.state.currentPage;
-      const upperLimit = currentPage * pageSize;
-      const dataSlice = data.slice((upperLimit - pageSize), upperLimit);
-      return dataSlice;
-    }
-  
-    render() {
-      return (
-        <div className='pagination'>
-          <div className='pagination-controls'>
-            {this.createControls()}
-          </div>
-          <div className='pagination-results'>
-            {React.cloneElement(this.props.children, {data: this.createPaginatedData()})}
-          </div>
-        </div>
-      );
-    }
+const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
+  const pageNumbers = [];
+
+  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+    pageNumbers.push(i);
   }
-  
-  Pagination.propTypes = {
-    data: React.PropTypes.array.isRequired,
-    pageSize: React.PropTypes.number.isRequired,
-    startingPage: React.PropTypes.number.isRequired
-  };
-  
-  Pagination.defaultProps = {
-    pageSize: 2,
-    startingPage: 1
-  };
-  
- export default Pagination;
+
+//containerClassName={"pagination"}    subContainerClassName={"pages pagination"}  activeClassName={"active"}
+
+  return (
+    <nav>
+      <ul className='pagination'>
+        {pageNumbers.map(number => (
+          <li key={number} className='pages'>
+            <a onClick={() => paginate(number)} href='!#' className='page-link'>
+              {number}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  );
+};
+
+export default Pagination;
